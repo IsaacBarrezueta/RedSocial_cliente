@@ -8,7 +8,7 @@ async function registrarUsuario() {
     const apellido = document.getElementById('apellido').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const imagen = document.getElementById('imagenUsuario').files;
+    //const imagen = document.getElementById('imagenUsuario').files;
     const nombres = nombre + " " +  apellido;
     try {
         const response = await fetch('https://redsocial-server.onrender.com/api/register', {
