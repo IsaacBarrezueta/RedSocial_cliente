@@ -408,7 +408,8 @@ async function publicar() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ UsuarioID: usuarioID, Contenido: contenido, FechaPublicacion: fechaPublicacion })
+            body: JSON.stringify({ UsuarioID: userData.usuarioid, Contenido: contenido, FechaPublicacion: fechaPublicacion })
+
         });
 
         if (response.ok) {
@@ -436,7 +437,8 @@ document.addEventListener("DOMContentLoaded", async() => {
 
         publicaciones.forEach(async publicacion => {
             const { PublicacionID, UsuarioID, contenido, fechapublicacion } = publicacion;
-            const usuario = await obtenerNombreUsuario(UsuarioID); // Espera a que se resuelva la promesa para obtener el nombre del usuario
+            const usuario = await obtenerNombreUsuario(publicacion.usuarioid); // Espera a que se resuelva la promesa para obtener el nombre del usuario
+            console.log(publicacion.usuarioid);
             const fecha = new Date(fechapublicacion).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
 
             // Construir el HTML de la publicación con el diseño personalizado
@@ -472,9 +474,9 @@ document.addEventListener("DOMContentLoaded", async() => {
 
 async function obtenerNombreUsuario(usuarioID) {
     try {
-        const response = await fetch('https://redsocial-server.onrender.com/api/usuarios');
-        const usuarios = await response.json();
-        const usuario = usuarios.find(usuario => usuario.UsuarioID === usuarioID);
+        const response = await fetch(`https://redsocial-server.onrender.com/api/usuario?usuarioid=${encodeURIComponent(usuarioID)}`);
+        const usuario = await response.json();
+        //const usuario = usuarios.find(usuario => usuario.UsuarioID === usuarioID);
         if (usuario) {
             return usuario.nombre; // Asumiendo que el nombre del usuario está en el campo 'nombre'
         } else {
@@ -486,5 +488,3 @@ async function obtenerNombreUsuario(usuarioID) {
         return usuario.nombre;
     }
 }
-
-
