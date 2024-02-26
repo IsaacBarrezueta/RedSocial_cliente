@@ -354,4 +354,137 @@ async function ObtenerContactos(usuarioid1){
     }
 }
 
+function toggleNotifications() {
+    var menu = document.getElementById("notifications-menu");
+    if (menu.classList.contains("hidden")) {
+        menu.classList.remove("hidden");
+        document.addEventListener("click", closeNotificationsOutside);
+    } else {
+        menu.classList.add("hidden");
+        document.removeEventListener("click", closeNotificationsOutside);
+    }
+}
+
+function closeNotificationsOutside(event) {
+    var menu = document.getElementById("notifications-menu");
+    if (!menu.contains(event.target)) {
+        menu.classList.add("hidden");
+        document.removeEventListener("click", closeNotificationsOutside);
+    }
+}
+
+function toggleMenu() {
+    var menu = document.getElementById("user-menu");
+    if (menu.style.display === "none" || menu.style.display === "") {
+        menu.style.display = "block";
+    } else {
+        menu.style.display = "none";
+    }
+}
+
+
+function openModal() {
+    document.getElementById('modal').style.display = 'block';
+    // Obtener el ID del usuario del almacenamiento local
+    const usuarioID = localStorage.getItem('userID');
+
+    // Mostrar el ID del usuario en la consola
+    console.log("ID del usuario:", usuarioID);
+
+}
+
+function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+}
+
+async function publicar() {
+    const contenido = document.getElementById('contenido').value;
+    const usuarioID = parseInt(localStorage.getItem('userID'), 10); // Obtener el ID del usuario del almacenamiento local
+    const fechaPublicacion = new Date().toISOString(); // Obtener la fecha actual en formato ISO
+
+    try {
+        const response = await fetch('https://redsocial-server.onrender.com/api/publicar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ UsuarioID: usuarioID, Contenido: contenido, FechaPublicacion: fechaPublicacion })
+        });
+
+        if (response.ok) {
+            alert('Publicación exitosa');
+            closeModal(); // Cerrar modal después de publicar
+        } else {
+            const data = await response.json();
+            alert('Error al publicar: ' + data.error);
+        }
+    } catch (error) {
+        console.error('Error de red:', error);
+        alert('Error de red: ' + error.message);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", async() => {
+    try {
+        const response = await fetch('https://redsocial-server.onrender.com/api/publicaciones');
+        const publicaciones = await response.json();
+
+        // Ordenar las publicaciones por su ID de manera descendente
+        publicaciones.sort((a, b) => b.PublicacionID - a.PublicacionID);
+        console.log("publicaciones", publicaciones);
+        const publicacionesContainer = document.getElementById('publicaciones-container');
+
+        publicaciones.forEach(async publicacion => {
+            const { PublicacionID, UsuarioID, contenido, fechapublicacion } = publicacion;
+            const usuario = await obtenerNombreUsuario(UsuarioID); // Espera a que se resuelva la promesa para obtener el nombre del usuario
+            const fecha = new Date(fechapublicacion).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            // Construir el HTML de la publicación con el diseño personalizado
+            const publicacionHTML = `
+                <div id="publicacion-${PublicacionID}" class="bg-white rounded-md p-4 shadow-md mb-4">
+                    <div class="flex space-x-2">
+                        <img src="https://picsum.photos/200" alt="" class="rounded-full w-10 h-10">
+                        <div class="flex flex-col">
+                            <h3 class="text-gray-500 font-semibold text-sm">${usuario}</h3>
+                            <div class="flex space-x-2 px-2 justify-center items-center">
+                                <div class="text-gray-500 text-sm">${fecha}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-p flex mt-2 text-3xl text-center text-white p-5 font-bold items-center justify-center bg-gradient-to-br from-blue-500 to-purple-400"
+                        style="width: 450px; height: 300px;">
+                            <p>${contenido}</p>
+                    </div>
+                  
+                    
+                    <hr class="mt-2">
+                    
+                </div>
+            `;
+
+            publicacionesContainer.insertAdjacentHTML('beforeend', publicacionHTML);
+        });
+    } catch (error) {
+        console.error('Error al obtener las publicaciones:', error);
+    }
+});
+
+
+async function obtenerNombreUsuario(usuarioID) {
+    try {
+        const response = await fetch('https://redsocial-server.onrender.com/api/usuarios');
+        const usuarios = await response.json();
+        const usuario = usuarios.find(usuario => usuario.UsuarioID === usuarioID);
+        if (usuario) {
+            return usuario.nombre; // Asumiendo que el nombre del usuario está en el campo 'nombre'
+        } else {
+            throw new Error('Usuario no encontrado');
+        }
+    } catch (error) {
+        console.error('Error al obtener el nombre del usuario:', error);
+        console.log("nombre:", usuario.nombre);
+        return usuario.nombre;
+    }
+}
+
 

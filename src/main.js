@@ -17,6 +17,7 @@ function redireccionRegistro(){
 async function iniciarSesion() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    let idusuario = 0;
     try {
         const response = await fetch('https://redsocial-server.onrender.com/api/login', {
             method: 'POST',
@@ -25,14 +26,22 @@ async function iniciarSesion() {
             },
             body: JSON.stringify({ CorreoElectronico: email, Contraseña: password })
         });
+
         const data = await response.json();
+        idusuario = Math.floor(data.UsuarioID);
+
+        console.log("ID del usuario:aaaaaaaaa", idusuario);
         if (response.ok) {
-            localStorage.setItem('userData', JSON.stringify(data));
+            // Guardar el ID del usuario en el almacenamiento local del navegador
+            console.log("ID del usuario:", data.UsuarioID);
+            localStorage.setItem('userID', data.UsuarioID);
+
             Swal.fire({
                 title: "Inicio de sesión exitoso",
                 icon: "success"
             }).then((result) => {
                 if (result.isConfirmed || result.isDismissed) {
+                    // Redirigir a la página de publicaciones después del inicio de sesión exitoso
                     window.location.href = './app/components/PublicacionesComponent/publicacionesComponent.html';
                 }
             });
