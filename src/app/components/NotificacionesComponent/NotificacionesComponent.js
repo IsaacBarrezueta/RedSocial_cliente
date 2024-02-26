@@ -23,7 +23,7 @@ obtenernotificacionusuario(userData.usuarioid);
 
 async function obtenernotificacionusuario(usuarioID){
     try{
-        const response = await fetch(`http://localhost:3000/api/notificaciones?usuarioID=${encodeURIComponent(usuarioID)}`);
+        const response = await fetch(`https://redsocial-server.onrender.com/api/notificaciones?usuarioID=${encodeURIComponent(usuarioID)}`);
         if (response.ok) {
             const data = await response.json();
             listarnotificaciones(data);
@@ -40,7 +40,7 @@ async function obtenernotificacionusuario(usuarioID){
 
 async function obtenerusuario(usuarioid){
     try{
-        const response = await fetch(`http://localhost:3000/api/usuario?usuarioid=${encodeURIComponent(usuarioid)}`);
+        const response = await fetch(`https://redsocial-server.onrender.com/api/usuario?usuarioid=${encodeURIComponent(usuarioid)}`);
         if (response.ok) {
             const data = await response.json();
             return data;
@@ -149,7 +149,7 @@ async function listarnotificaciones(notificaciones){
 
 async function cambiarestado(usuarioid1, usuarioid2, estado) {
     try {
-        const response = await fetch('http://localhost:3000/api/estado', {
+        const response = await fetch('https://redsocial-server.onrender.com/api/estado', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -170,7 +170,7 @@ async function cambiarestado(usuarioid1, usuarioid2, estado) {
 
 async function Obtenerconexion(usuarioid1,usuarioid2){
     try{
-        const response = await fetch(`http://localhost:3000/api/conexion?usuarioid1=${encodeURIComponent(usuarioid1)}&usuarioid2=${encodeURIComponent(usuarioid2)}`);
+        const response = await fetch(`https://redsocial-server.onrender.com/api/conexion?usuarioid1=${encodeURIComponent(usuarioid1)}&usuarioid2=${encodeURIComponent(usuarioid2)}`);
         if (response.ok) {
             const data = await response.json();
             return data;

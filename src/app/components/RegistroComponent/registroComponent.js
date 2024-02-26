@@ -11,7 +11,7 @@ async function registrarUsuario() {
     const imagen = document.getElementById('imagenUsuario').files;
     const nombres = nombre + " " +  apellido;
     try {
-        const response = await fetch('http://localhost:3000/api/register', {
+        const response = await fetch('https://redsocial-server.onrender.com/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -23,7 +23,7 @@ console.log(userData.usuarioid);
 async function buscarpersonas(){
     const nombre = document.getElementById('busqueda').value;
     try{
-        const response = await fetch(`http://localhost:3000/api/filtro?name=${encodeURIComponent(nombre)}`);
+        const response = await fetch(`https://redsocial-server.onrender.com/api/filtro?name=${encodeURIComponent(nombre)}`);
         if (response.ok) {
             const data = await response.json();
             listarusuarios(data);
@@ -93,7 +93,7 @@ async function agregaramigo(usuarioid1,usuarioid2){
         const conexion = await Obtenerconexion(usuarioid1,usuarioid2);
         console.log(conexion);
         if(conexion.estado === ''){
-            const response = await fetch('http://localhost:3000/api/solicitud', {
+            const response = await fetch('https://redsocial-server.onrender.com/api/solicitud', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -134,7 +134,7 @@ async function agregaramigo(usuarioid1,usuarioid2){
 
 async function crearnotificacion(usuarioid,contenido,usuarioid2){
     try {
-        const response = await fetch('http://localhost:3000/api/notificacion', {
+        const response = await fetch('https://redsocial-server.onrender.com/api/notificacion', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -151,7 +151,7 @@ async function crearnotificacion(usuarioid,contenido,usuarioid2){
 
 async function Obtenerconexion(usuarioid1,usuarioid2){
     try{
-        const response = await fetch(`http://localhost:3000/api/conexion?usuarioid1=${encodeURIComponent(usuarioid1)}&usuarioid2=${encodeURIComponent(usuarioid2)}`);
+        const response = await fetch(`https://redsocial-server.onrender.com/api/conexion?usuarioid1=${encodeURIComponent(usuarioid1)}&usuarioid2=${encodeURIComponent(usuarioid2)}`);
         if (response.ok) {
             const data = await response.json();
             return data;
@@ -168,7 +168,7 @@ async function Obtenerconexion(usuarioid1,usuarioid2){
 
 async function cambiarestado(usuarioid1, usuarioid2, estado) {
     try {
-        const response = await fetch('http://localhost:3000/api/estado', {
+        const response = await fetch('https://redsocial-server.onrender.com/api/estado', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
