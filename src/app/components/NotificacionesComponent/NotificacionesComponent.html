@@ -33,10 +33,8 @@
                     </div>
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
-                            <a href="#" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" onclick="redireccionPublicaciones()">Publicaciones</a>
-                            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" onclick="redireccionMensajes()">Mensajes</a>
-                            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" onclick="redireccionNoti()">Notificaciones</a>
-                            <!-- <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" onclick="redireccionPublicaciones()">Contactos</a>-->
+                            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" onclick="redireccionPublicaciones()">Publicaciones</a>
+                            <a href="#" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" onclick="redireccionNoti()">Notificaciones</a>
                         </div>
                     </div>
                 </div>
@@ -52,17 +50,17 @@
                     <!-- Profile dropdown -->
                     <div class="relative ml-3">
                         <div>
-                            <button type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                    <span class="absolute -inset-1.5"></span>
-                    <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                  </button>
+                            <button type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true" onclick="toggleMenu()">
+                                <span class="absolute -inset-1.5"></span>
+                                <span class="sr-only">Open user menu</span>
+                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                            </button>
                         </div>
 
-                        <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" id="menu" style="display: none;">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0" onclick="redireccionProf()">Mi Perfil</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Configuraciones</a>
-                            <a class="boton block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2" onclick="redireccionLogin()">Cerrar Sesión</a>
+                        <div id="user-menu" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                            <a class="boton block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0" onclick="redireccionProf()">Tu perfil</a>
+                            <a class="boton block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Configuraciones</a>
+                            <a class="boton block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2" onclick="redireccionLogin()">Salir</a>
                         </div>
                     </div>
                 </div>
@@ -71,44 +69,15 @@
 
         <div class="sm:hidden" id="mobile-menu">
             <div class="space-y-1 px-2 pb-3 pt-2">
-                <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Publicaciones</a>
-                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Mensajes</a>
-                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Notificaciones</a>
-                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Contactos</a>
+                <a class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page " onclick="redireccionPublicaciones()" >Publicaciones</a>
+                <a class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium" onclick="redireccionNoti()">Notificaciones</a>
             </div>
         </div>
     </nav>
 
     <body>
         <div id="notifications" class="notifications">
-            <!--<div class="notification">
-                <h4>KnGDOWSAN2</h4>
-                <p>Tiene 2 nuevas visualizaciones. <span style="float:right; font-size: 0.8em; color:#777">Hace 6 días</span></p>
-            </div>
-            <div class="notification">
-                <h4>Alertas de inicio de sesión</h4>
-                <p>Has activado las alertas de inicio de sesión. Te enviaremos una notificación cada vez que se inicie sesión en un dispositivo o ubicación no reconocida. <span style="float:right; font-size: 0.8em; color:#777">hace un día</span></p>
-            </div>
-            <div class="notification">
-                <h4>E.I. => I.S. - T.I.</h4>
-                <p>Desde la dirigencia estudiantil, felicitamos a nuestra Docente, la Prof. Nieta Francisca, por su destacada labor en el área de Tecnologías de la Información. <span style="float:right; font-size: 0.8em; color:#777">Hace 5 días</span></p>
-            </div>
-            <div class="notification">
-                <h4>Solicitudes de amistad</h4>
-                <p>Estefania Velasco ha aceptado tu solicitud de amistad. <span style="float:right; font-size: 0.8em; color:#777">hace 3 semanas</span></p>
-            </div>
-            <div class="notification">
-                <h4>Solicitudes de amistad</h4>
-                <p>Lauro Erreyes ha aceptado tu solicitud de amistad. <span style="float:right; font-size: 0.8em; color:#777">hace 3 semanas</span></p>
-            </div>
-            <div class="notification">
-                <h4>Solicitudes de amistad</h4>
-                <p>Carlos Pereira ha aceptado tu solicitud de amistad. <span style="float:right; font-size: 0.8em; color:#777">hace 3 semanas</span></p>
-            </div>
-            <div class="notification">
-                <h4>Seguridad</h4>
-                <p>Hemos detectado un inicio de sesión inusual desde un dispositivo o una ubicación que no reconocemos. <span style="float:right; font-size: 0.8em; color:#777">hace 3 semanas</span></p>
-            </div>-->
+           
         </div>
     </body>
 
