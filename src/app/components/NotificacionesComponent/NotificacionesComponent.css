@@ -1,0 +1,41 @@
+.boton {
+    cursor: pointer;
+}
+
+.notification {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.notification h4 {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.notification p {
+    margin: 0;
+    color: #777;
+}
+
+.boton-aceptar,
+.boton-rechazar {
+    padding: 8px 16px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+}
+
+/* Estilos específicos para el botón "Aceptar" */
+.boton-aceptar {
+    background-color: #4CAF50;
+}
+
+/* Estilos específicos para el botón "Rechazar" */
+.boton-rechazar {
+    background-color: #f44336;
+}
